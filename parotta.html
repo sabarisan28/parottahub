@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Parotta Hub</title>
+  <link rel="icon" href="icon.jpg">
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #222;
+      color: white;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #FFD700;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+    }
+
+    nav ul li {
+      margin-left: 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav ul li a:hover {
+      background: #FFD700;
+      color: #222;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 60px 20px;
+    }
+
+    #home {
+      background: url('bg.jpg') no-repeat center center/cover;
+      color: white;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    #home h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    #home p {
+      font-size: 1.2rem;
+    }
+
+    #about {
+      background: #f9f9f9;
+    }
+
+    #about h2, #menu h2, #contact h2, #help h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .menu-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .menu-item {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      padding-bottom: 15px;
+    }
+
+    .menu-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .menu-item h3 {
+      padding: 10px 10px 0;
+    }
+
+    .menu-item p {
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .order-btn {
+      padding: 8px 15px;
+      background-color: #FFD700;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .order-btn:hover {
+      background-color: #e6be00;
+    }
+
+    form {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: #222;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <div class="logo">🥞 <span style="color:#FFD700;">The Parotta Hub</span></div>
+      <ul>
+        <li><a href="#home"><span>🏠</span> Home</a></li>
+        <li><a href="#about"><span>📖</span> About</a></li>
+        <li><a href="#menu"><span>🍽️</span> Varieties</a></li>
+        <li><a href="#contact"><span>📞</span> Contact</a></li>
+        <li><a href="#address"><span>📍</span> Address</a></li>
+        <li><a href="#help"><span>❓</span> Help</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home">
+    <h1>Welcome to Parotta Paradise</h1>
+    <p>Home of the Softest, Crispiest, Most Delicious Parottas!</p>
+  </section>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p style="text-align:center; max-width: 800px; margin: auto;">
+      We are a local Parotta stall serving authentic South Indian delights with love and taste. From crispy veechu parotta to spicy chilli parotta, we have over 20 varieties to satisfy your cravings.
+    </p>
+  </section>
+
+  <section id="menu">
+    <h2>Our Varieties</h2>
+    <div class="menu-container">
+      <!-- One Sample -->
+      <div class="menu-item">
+        <img src="plain.jpg" alt="Plain Parotta">
+        <h3>Plain Parotta</h3>
+        <p>₹15</p>
+        <button class="order-btn" onclick="orderItem('Plain Parotta')">Order Now</button>
+      </div>
+
+      <div class="menu-item">
+        <img src="kothu.jpg" alt="Kothu Parotta">
+        <h3>Kothu Parotta</h3>
+        <p>₹60</p>
+        <button class="order-btn" onclick="orderItem('Kothu Parotta')">Order Now</button>
+      </div>
+
+      <div class="menu-item">
+        <img src="egg.jpg" alt="Egg Parotta">
+        <h3>Egg Parotta</h3>
+        <p>₹35</p>
+        <button class="order-btn" onclick="orderItem('Egg Parotta')">Order Now</button>
+      </div>
+
+      <div class="menu-item">
+        <img src="chilli.jpg" alt="Chilli Parotta">
+        <h3>Chilli Parotta</h3>
+        <p>₹70</p>
+        <button class="order-btn" onclick="orderItem('Chilli Parotta')">Order Now</button>
+      </div>
+
+      <div class="menu-item">
+        <img src="veetu.jpg" alt="Veetu Parotta">
+        <h3>Veetu Parotta</h3>
+        <p>₹20</p>
+        <button class="order-btn" onclick="orderItem('Veetu Parotta')">Order Now</button>
+      </div>
+
+      <div class="menu-item">
+        <img src="nool.jpg" alt="Nool parotta">
+        <h3>Nool Parotta</h3>
+        <p>₹25</p>
+        <button class="order-btn" onclick="orderItem('Nool Parotta')">Order Now</button>
+      </div>
+
+      <div class="menu-item">
+        <img src="bun.jpg" alt="bun Parotta">
+        <h3>Bun Parotta</h3>
+        <p>₹40</p>
+        <button class="order-btn" onclick="orderItem('Bun Parotta')">Order Now</button>
+      </div>
+
+      <div class="menu-item">
+        <img src="kizhi.jpg" alt="kizhi Parotta">
+        <h3>Kizhi Parotta</h3>
+        <p>₹120</p>
+        <button class="order-btn" onclick="orderItem('Kizhi Parotta')">Order Now</button>
+      </div>
+
+      <div class="menu-item">
+        <img src="lappa.jpg" alt="Parotta lappa">
+        <h3>Parotta lappa</h3>
+        <p>₹30</p>
+        <button class="order-btn" onclick="orderItem('Parotta Lappa')">Order Now</button>
+      </div>
+
+      <div class="menu-item">
+        <img src="wheat.jpg" alt="Wheat parotta">
+        <h3>Wheat Parotta</h3>
+        <p>₹25</p>
+        <button class="order-btn" onclick="orderItem('Wheat Parotta')">Order Now</button>
+      </div>
+
+      <div class="menu-item">
+        <img src="paal.jpg" alt="Paal Parotta">
+        <h3>Paal Parotta</h3>
+        <p>₹60</p>
+        <button class="order-btn" onclick="orderItem('Paal Parotta')">Order Now</button>
+      </div>
+
+      <div class="menu-item">
+        <img src="malabar.jpg" alt="Malabar parotta">
+        <h3>Malabar Parotta</h3>
+        <p>₹90</p>
+        <button class="order-btn" onclick="orderItem('Malabar Parotta')">Order Now</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="5" placeholder="Your Message"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+  <section id="address">
+  <h2><center>Our Address</center></h2><br><br>
+  <p style="text-align:center; max-width: 800px; margin: auto;">
+    The Parotta Hub,<br>
+    12, Food Street,<br>
+    Near Bus Stand,<br>
+    Madurai - 625001,<br>
+    Tamil Nadu, India.
+  </p>
+</section>
+
+  <section id="help">
+    <h2>Help & FAQs</h2>
+    <div style="max-width: 800px; margin: auto;">
+      <h3>Frequently Asked Questions</h3>
+      <p><strong>Q1:</strong> <em>What types of Parottas do you serve?</em><br/>
+      <strong>A:</strong> We serve over 20 varieties, including Plain, Egg, Kothu, Chilli, Veetu, and Cheese Parottas.</p>
+
+      <p><strong>Q2:</strong> <em>What are your opening hours?</em><br/>
+      <strong>A:</strong> We’re open every day from <strong>5:00 PM to 11:00 PM</strong>.</p>
+
+      <p><strong>Q3:</strong> <em>Do you provide home delivery?</em><br/>
+      <strong>A:</strong> Yes! We offer delivery via Swiggy, Zomato, and direct phone orders (within 5 km).</p>
+
+      <p><strong>Q4:</strong> <em>Can I pre-order for a large group or party?</em><br/>
+      <strong>A:</strong> Absolutely! Please contact us at least 2 hours in advance for bulk or custom orders.</p>
+
+      <p><strong>Q5:</strong> <em>Are your items halal and hygienic?</em><br/>
+      <strong>A:</strong> Yes. All items are prepared fresh daily with halal-certified ingredients in a hygienic kitchen.</p>
+
+      <p><strong>Q6:</strong> <em>How can I reach you for complaints or feedback?</em><br/>
+      <strong>A:</strong> Please use the contact form above or call us at <strong>+91-98765-43210</strong>.</p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Parotta Stall | Designed with ❤️
+  </footer>
+
+  <script>
+    document.querySelector("form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Thanks for contacting us! We'll get back to you soon.");
+    });
+
+    function orderItem(itemName) {
+      alert("✅ " + itemName + " has been added to your order!");
+    }
+  </script>
+</body>
+</html>
