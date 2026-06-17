@@ -1,30 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Meta Tags -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="The Parotta Hub - Authentic South Indian Parottas in Madurai"/>
+  <meta name="keywords" content="parotta, south indian food, madurai, kothu parotta"/>
+  <meta name="author" content="The Parotta Hub"/>
   <title>The Parotta Hub</title>
   <link rel="icon" href="icon.jpg">
+
+  <!-- Google Fonts - Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Merriweather&display=swap" rel="stylesheet">
+
   <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
+    /* ===== CSS Variables (Custom Properties) ===== */
+    :root {
+      --primary: #FFD700;
+      --dark: #222;
+      --light: #f9f9f9;
+      --text: #333;
+      --muted: #555;
+      --radius: 10px;
+      --shadow: 0 2px 10px rgba(0,0,0,0.1);
+      --transition: 0.3s ease;
+      --font-main: 'Poppins', 'Segoe UI', sans-serif;
+      --font-serif: 'Merriweather', serif;
+    }
+
+    /* ===== CSS Reset + Best Practices ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       scroll-behavior: smooth;
     }
 
+    /* ===== Typography and Fonts ===== */
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: var(--font-main);
+      font-size: 1rem;         /* rem unit */
       line-height: 1.6;
+      color: var(--text);
     }
 
+    h1 { font-size: clamp(1.8rem, 5vw, 3rem); }   /* CSS clamp() function */
+    h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
+    h3 { font-size: 1.1rem; }
+
+    /* ===== CSS Specificity Demo ===== */
+    /* element < class < id (specificity order) */
+    p { color: var(--text); }            /* specificity: 0,0,1 */
+    .muted-text { color: var(--muted); } /* specificity: 0,1,0 */
+    #hero-tagline { color: #fffbe6; }    /* specificity: 1,0,0 */
+
+    /* ===== Header / Sticky Positioning ===== */
     header {
-      background: #222;
+      background: var(--dark);
       color: white;
-      padding: 1rem 2rem;
-      position: sticky;
+      padding: 1rem 2rem;       /* px unit */
+      position: sticky;         /* positioning: sticky */
       top: 0;
-      z-index: 999;
+      z-index: 999;             /* z-index */
     }
 
+    /* ===== Flexbox - Navbar ===== */
     nav {
       display: flex;
       justify-content: space-between;
@@ -33,320 +73,1324 @@
 
     nav .logo {
       font-size: 1.5rem;
-      font-weight: bold;
-      color: #FFD700;
+      font-weight: 700;
+      color: var(--primary);
     }
 
     nav ul {
       list-style: none;
       display: flex;
-    }
-
-    nav ul li {
-      margin-left: 20px;
+      gap: 5px;
     }
 
     nav ul li a {
       text-decoration: none;
       color: white;
-      font-size: 1rem;
+      font-size: 0.95rem;
       display: flex;
       align-items: center;
       gap: 5px;
       padding: 8px 12px;
-      border-radius: 8px;
-      transition: background 0.3s, color 0.3s;
+      border-radius: var(--radius);
+      transition: background var(--transition), color var(--transition); /* Transitions */
     }
 
-    nav ul li a:hover {
-      background: #FFD700;
-      color: #222;
-      font-weight: bold;
+    nav ul li a:hover {        /* Pseudo-class */
+      background: var(--primary);
+      color: var(--dark);
+      font-weight: 700;
     }
 
+    /* Active nav link pseudo-class */
+    nav ul li a:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    /* ===== Sections ===== */
     section {
-      padding: 60px 20px;
+      padding: 60px 20px;      /* px unit */
     }
 
+    /* ===== Hero Section ===== */
     #home {
-      background: url('bg.jpg') no-repeat center center/cover;
+      background: url('bg.jpg') no-repeat center center / cover; /* Background */
       color: white;
-      height: 100vh;
+      height: 100vh;            /* vh unit */
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
       text-align: center;
+      position: relative;       /* positioning: relative */
     }
 
-    #home h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
+    /* Pseudo-element ::before for overlay */
+    #home::before {
+      content: '';
+      position: absolute;       /* positioning: absolute */
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 0;
+    }
+
+    #home > * {
+      position: relative;
+      z-index: 1;
     }
 
     #home p {
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);  /* vw unit + clamp */
     }
 
+    /* ===== About Section ===== */
     #about {
-      background: #f9f9f9;
+      background: var(--light);
     }
 
-    #about h2, #menu h2, #contact h2, #help h2 {
+    #about h2, #menu h2, #contact h2, #help h2,
+    #address h2, #gallery h2, #info h2 {
       text-align: center;
       margin-bottom: 20px;
     }
 
+    /* Pseudo-element ::after for decorative underline */
+    #about h2::after, #menu h2::after, #contact h2::after,
+    #info h2::after, #gallery h2::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--primary);
+      margin: 8px auto 0;
+      border-radius: 2px;
+    }
+
+    /* ===== CSS Grid - Menu ===== */
     .menu-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
-      max-width: 1000px;
+      max-width: min(1000px, 95%);   /* CSS min() function */
       margin: auto;
     }
 
+    /* ===== Box Model - Menu Card ===== */
     .menu-item {
       background: #fff;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border-radius: var(--radius);
+      overflow: hidden;              /* overflow */
+      box-shadow: var(--shadow);
       text-align: center;
-      padding-bottom: 15px;
+      padding-bottom: 15px;          /* padding */
+      border: 1px solid #eee;        /* border */
+      /* Transformation on hover via class */
+      transition: transform var(--transition), box-shadow var(--transition);
     }
 
+    .menu-item:hover {               /* Pseudo-class */
+      transform: translateY(-5px) scale(1.02);  /* Transformation */
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    /* ===== Object Fit and Object Position ===== */
     .menu-item img {
       width: 100%;
       height: 180px;
-      object-fit: cover;
+      object-fit: cover;             /* object-fit */
+      object-position: center top;   /* object-position */
+      display: block;
     }
 
-    .menu-item h3 {
-      padding: 10px 10px 0;
-    }
+    .menu-item h3 { padding: 10px 10px 0; }
+    .menu-item .price { color: var(--muted); margin-bottom: 10px; font-weight: 600; }
 
-    .menu-item p {
-      color: #555;
-      margin-bottom: 10px;
+    /* ===== Badge - Visibility & Opacity ===== */
+    .badge {
+      display: inline-block;
+      background: #e74c3c;
+      color: white;
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: 20px;
+      margin-left: 5px;
+      opacity: 1;
+      transition: opacity var(--transition);
     }
+    .badge.hidden { visibility: hidden; }   /* visibility */
+    .badge.faded  { opacity: 0.3; }         /* opacity */
 
+    /* ===== Order Button ===== */
     .order-btn {
       padding: 8px 15px;
-      background-color: #FFD700;
+      background-color: var(--primary);
       border: none;
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
-      transition: background-color 0.3s;
+      transition: background-color var(--transition), transform var(--transition);
+      font-family: var(--font-main);
     }
 
-    .order-btn:hover {
-      background-color: #e6be00;
+    .order-btn:hover  { background-color: #e6be00; transform: scale(1.05); }
+    .order-btn:active { transform: scale(0.97); }   /* pseudo-class :active */
+
+    /* ===== Animation - Keyframes ===== */
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    form {
-      max-width: 500px;
-      margin: auto;
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
-    input, textarea {
+    .hero-title {
+      animation: fadeSlideDown 0.9s ease forwards; /* Animation */
+      font-family: var(--font-serif);
+    }
+
+    .loader-icon {
+      display: inline-block;
+      animation: spin 1.5s linear infinite;
+    }
+
+    /* ===== Form ===== */
+    form { max-width: 500px; margin: auto; }
+
+    label {                           /* Labels */
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    input, textarea, select {
       width: 100%;
       padding: 10px;
       margin-bottom: 15px;
       border-radius: 5px;
       border: 1px solid #ccc;
+      font-family: var(--font-main);
+      font-size: 1rem;
+      transition: border-color var(--transition);
     }
 
-    button {
-      background: #222;
+    input:focus, textarea:focus, select:focus {   /* pseudo-class :focus */
+      border-color: var(--primary);
+      outline: none;
+    }
+
+    input:valid   { border-color: #2ecc71; }     /* pseudo-class :valid */
+    input:invalid:not(:placeholder-shown) { border-color: #e74c3c; } /* pseudo-class :invalid */
+
+    button[type="submit"] {
+      background: var(--dark);
       color: white;
       border: none;
       padding: 10px 20px;
       cursor: pointer;
       border-radius: 5px;
+      font-size: 1rem;
+      font-family: var(--font-main);
+      transition: background var(--transition);
+      width: 100%;
     }
 
+    button[type="submit"]:hover { background: #444; }   /* attribute selector */
+
+    /* ===== Table ===== */
+    .info-table {
+      width: 100%;
+      max-width: 700px;
+      margin: 20px auto;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .info-table th, .info-table td {
+      border: 1px solid #ddd;
+      padding: 10px 15px;
+      text-align: left;
+    }
+
+    .info-table thead th {
+      background: var(--dark);
+      color: white;
+    }
+
+    .info-table tbody tr:nth-child(even) { background: #f2f2f2; }  /* pseudo-class */
+    .info-table tbody tr:hover { background: #fffde7; }
+
+    /* ===== Positioning: Fixed - Scroll to Top ===== */
+    #scroll-top {
+      position: fixed;            /* positioning: fixed */
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary);
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      z-index: 999;
+      display: none;
+      transition: opacity var(--transition);
+    }
+
+    #scroll-top.visible { display: block; }
+
+    /* ===== Display Property ===== */
+    .d-none   { display: none; }
+    .d-block  { display: block; }
+    .d-inline { display: inline; }
+    .d-flex   { display: flex; }
+
+    /* ===== Colors and Backgrounds ===== */
+    .bg-dark   { background-color: var(--dark); color: white; }
+    .bg-gold   { background-color: var(--primary); }
+    .text-gold { color: var(--primary); }
+
+    /* ===== Gallery - Overflow scroll ===== */
+    .gallery-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;            /* overflow */
+      padding: 10px 0 20px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .gallery-scroll::-webkit-scrollbar { height: 5px; }
+    .gallery-scroll::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 5px; }
+
+    .gallery-scroll img {
+      width: min(250px, 70vw);     /* CSS min() */
+      height: 170px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      scroll-snap-align: start;
+      flex-shrink: 0;
+    }
+
+    /* ===== Iframe ===== */
+    .map-wrapper {
+      width: 100%;
+      max-width: 700px;
+      margin: 20px auto;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 2px solid #ddd;
+    }
+
+    .map-wrapper iframe {
+      width: 100%;
+      height: 300px;
+      border: 0;
+    }
+
+    /* ===== Footer ===== */
     footer {
-      background: #222;
+      background: var(--dark);
       color: white;
       text-align: center;
-      padding: 15px;
+      padding: 20px;
+      font-size: 0.9rem;
     }
+
+    /* Pseudo-element ::first-line */
+    footer p::first-line { font-weight: bold; }
+
+    /* ===== CSS calc() function ===== */
+    .calc-demo {
+      width: calc(100% - 40px);
+      max-width: 800px;
+      margin: auto;
+    }
+
+    /* ===== Media Queries - Responsive Design ===== */
+    @media (max-width: 768px) {
+      nav ul { display: none; }     /* hide nav on mobile (demo) */
+      .mobile-menu-hint {
+        display: block;
+        color: var(--primary);
+        font-size: 0.85rem;
+        text-align: right;
+      }
+      section { padding: 40px 15px; }
+      .menu-container { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+    }
+
+    @media (min-width: 769px) {
+      .mobile-menu-hint { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      header { padding: 0.8rem 1rem; }
+      form { padding: 0 10px; }
+    }
+
+    /* ===== Aside / Sidebar (used in info section) ===== */
+    .info-layout {
+      display: flex;
+      gap: 20px;
+      max-width: 900px;
+      margin: auto;
+      flex-wrap: wrap;
+    }
+
+    .info-main   { flex: 2; min-width: 250px; }
+    .info-aside  {
+      flex: 1;
+      min-width: 200px;
+      background: #fffde7;
+      border-left: 4px solid var(--primary);
+      padding: 15px;
+      border-radius: var(--radius);
+    }
+
   </style>
 </head>
 <body>
 
-  <header>
-    <nav>
-      <div class="logo">🥞 <span style="color:#FFD700;">The Parotta Hub</span></div>
+  <!-- ===== Header - Semantic HTML ===== -->
+  <header role="banner">
+    <nav role="navigation" aria-label="Main Navigation">
+      <div class="logo" aria-label="The Parotta Hub logo">🥞 <span>The Parotta Hub</span></div>
       <ul>
-        <li><a href="#home"><span>🏠</span> Home</a></li>
-        <li><a href="#about"><span>📖</span> About</a></li>
-        <li><a href="#menu"><span>🍽️</span> Varieties</a></li>
-        <li><a href="#contact"><span>📞</span> Contact</a></li>
-        <li><a href="#address"><span>📍</span> Address</a></li>
-        <li><a href="#help"><span>❓</span> Help</a></li>
+        <li><a href="#home"    aria-label="Go to Home">🏠 Home</a></li>
+        <li><a href="#about"   aria-label="Go to About">📖 About</a></li>
+        <li><a href="#menu"    aria-label="Go to Menu">🍽️ Varieties</a></li>
+        <li><a href="#info"    aria-label="Go to Info">📊 Info</a></li>
+        <li><a href="#gallery" aria-label="Go to Gallery">🖼️ Gallery</a></li>
+        <li><a href="#contact" aria-label="Go to Contact">📞 Contact</a></li>
+        <li><a href="#address" aria-label="Go to Address">📍 Address</a></li>
+        <li><a href="#help"    aria-label="Go to Help">❓ Help</a></li>
       </ul>
+      <span class="mobile-menu-hint">☰ Open Menu</span>
     </nav>
   </header>
 
-  <section id="home">
-    <h1>Welcome to Parotta Paradise</h1>
-    <p>Home of the Softest, Crispiest, Most Delicious Parottas!</p>
-  </section>
+  <!-- ===== Main Content - Semantic HTML ===== -->
+  <main role="main">
 
-  <section id="about">
-    <h2>About Us</h2>
-    <p style="text-align:center; max-width: 800px; margin: auto;">
-      We are a local Parotta stall serving authentic South Indian delights with love and taste. From crispy veechu parotta to spicy chilli parotta, we have over 20 varieties to satisfy your cravings.
+    <!-- ===== Hero Section ===== -->
+    <section id="home" aria-label="Hero Section">
+      <h1 class="hero-title">Welcome to Parotta Paradise 🥞</h1>
+      <p id="hero-tagline">Home of the Softest, Crispiest, Most Delicious Parottas!</p>
+      <a href="#menu" style="margin-top:20px; padding:12px 28px; background:var(--primary);
+         color:var(--dark); border-radius:5px; text-decoration:none; font-weight:700;
+         display:inline-block; transition:transform 0.2s;">Explore Menu &darr;</a>
+    </section>
+
+    <!-- ===== About Section - Semantic HTML ===== -->
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About Us</h2>
+      <div class="calc-demo">
+
+        <!-- Text Formatting Tags -->
+        <p style="text-align:center; max-width:800px; margin:auto;">
+          We are a <strong>local Parotta stall</strong> serving <em>authentic South Indian</em> delights
+          with <u>love and taste</u>. From <mark>crispy veechu parotta</mark> to
+          <b>spicy chilli parotta</b>, we have over <del>15</del> <ins>20</ins> varieties.
+          Our recipe has been perfected over <sup>25+</sup> years — price starts at &#8377;15
+          <sub>(incl. tax)</sub>.
+        </p>
+
+        <!-- Unordered List -->
+        <h3 style="margin:20px 0 10px; text-align:center;">Why Choose Us?</h3>
+        <ul style="max-width:500px; margin:auto; padding-left:20px;">
+          <li>100% fresh ingredients daily</li>
+          <li>Halal certified &amp; hygienic kitchen</li>
+          <li>Over 20 parotta varieties</li>
+          <li>Home delivery via Swiggy &amp; Zomato</li>
+        </ul>
+
+        <!-- Ordered List -->
+        <h3 style="margin:20px 0 10px; text-align:center;">How to Order</h3>
+        <ol style="max-width:500px; margin:auto; padding-left:20px;">
+          <li>Browse our varieties below</li>
+          <li>Click &ldquo;Order Now&rdquo; on your choice</li>
+          <li>Call us or visit our stall</li>
+          <li>Enjoy your meal &#9786;</li>
+        </ol>
+
+        <!-- Description List -->
+        <h3 style="margin:20px 0 10px; text-align:center;">Parotta Glossary</h3>
+        <dl style="max-width:500px; margin:auto;">
+          <dt><strong>Veechu Parotta</strong></dt>
+          <dd>Thin, flaky parotta made by rapid hand-spinning technique.</dd>
+          <dt><strong>Kothu Parotta</strong></dt>
+          <dd>Shredded parotta stir-fried with egg, onions &amp; spices.</dd>
+          <dt><strong>Kizhi Parotta</strong></dt>
+          <dd>Parotta steamed in a banana leaf parcel with curry filling.</dd>
+        </dl>
+
+      </div>
+    </section>
+
+    <!-- ===== Menu Section - CSS Grid ===== -->
+    <section id="menu" aria-labelledby="menu-heading">
+      <h2 id="menu-heading">Our Varieties</h2>
+      <div class="menu-container">
+
+        <article class="menu-item" aria-label="Plain Parotta">
+          <img src="plain.jpg" alt="A crispy plain parotta on a plate">
+          <h3>Plain Parotta</h3>
+          <p class="price">&#8377;15</p>
+          <button class="order-btn" onclick="orderItem('Plain Parotta')" aria-label="Order Plain Parotta">Order Now</button>
+        </article>
+
+        <article class="menu-item" aria-label="Kothu Parotta">
+          <img src="kothu.jpg" alt="Kothu parotta sizzling on a griddle">
+          <h3>Kothu Parotta <span class="badge" aria-label="Best seller">🔥 Best</span></h3>
+          <p class="price">&#8377;60</p>
+          <button class="order-btn" onclick="orderItem('Kothu Parotta')" aria-label="Order Kothu Parotta">Order Now</button>
+        </article>
+
+        <article class="menu-item" aria-label="Egg Parotta">
+          <img src="egg.jpg" alt="Egg parotta garnished with onions">
+          <h3>Egg Parotta</h3>
+          <p class="price">&#8377;35</p>
+          <button class="order-btn" onclick="orderItem('Egg Parotta')" aria-label="Order Egg Parotta">Order Now</button>
+        </article>
+
+        <article class="menu-item" aria-label="Chilli Parotta">
+          <img src="chilli.jpg" alt="Spicy chilli parotta in a bowl">
+          <h3>Chilli Parotta <span class="badge" aria-label="Spicy">🌶️ Hot</span></h3>
+          <p class="price">&#8377;70</p>
+          <button class="order-btn" onclick="orderItem('Chilli Parotta')" aria-label="Order Chilli Parotta">Order Now</button>
+        </article>
+
+        <article class="menu-item" aria-label="Veetu Parotta">
+          <img src="veetu.jpg" alt="Homestyle veetu parotta">
+          <h3>Veetu Parotta</h3>
+          <p class="price">&#8377;20</p>
+          <button class="order-btn" onclick="orderItem('Veetu Parotta')" aria-label="Order Veetu Parotta">Order Now</button>
+        </article>
+
+        <article class="menu-item" aria-label="Nool Parotta">
+          <img src="nool.jpg" alt="String-style nool parotta">
+          <h3>Nool Parotta</h3>
+          <p class="price">&#8377;25</p>
+          <button class="order-btn" onclick="orderItem('Nool Parotta')" aria-label="Order Nool Parotta">Order Now</button>
+        </article>
+
+        <article class="menu-item" aria-label="Bun Parotta">
+          <img src="bun.jpg" alt="Fluffy bun parotta">
+          <h3>Bun Parotta</h3>
+          <p class="price">&#8377;40</p>
+          <button class="order-btn" onclick="orderItem('Bun Parotta')" aria-label="Order Bun Parotta">Order Now</button>
+        </article>
+
+        <article class="menu-item" aria-label="Kizhi Parotta">
+          <img src="kizhi.jpg" alt="Kizhi parotta wrapped in banana leaf">
+          <h3>Kizhi Parotta <span class="badge" aria-label="Chef special">⭐ Special</span></h3>
+          <p class="price">&#8377;120</p>
+          <button class="order-btn" onclick="orderItem('Kizhi Parotta')" aria-label="Order Kizhi Parotta">Order Now</button>
+        </article>
+
+        <article class="menu-item" aria-label="Parotta Lappa">
+          <img src="lappa.jpg" alt="Parotta lappa served hot">
+          <h3>Parotta Lappa</h3>
+          <p class="price">&#8377;30</p>
+          <button class="order-btn" onclick="orderItem('Parotta Lappa')" aria-label="Order Parotta Lappa">Order Now</button>
+        </article>
+
+        <article class="menu-item" aria-label="Wheat Parotta">
+          <img src="wheat.jpg" alt="Healthy wheat parotta">
+          <h3>Wheat Parotta</h3>
+          <p class="price">&#8377;25</p>
+          <button class="order-btn" onclick="orderItem('Wheat Parotta')" aria-label="Order Wheat Parotta">Order Now</button>
+        </article>
+
+        <article class="menu-item" aria-label="Paal Parotta">
+          <img src="paal.jpg" alt="Sweet paal parotta in milk">
+          <h3>Paal Parotta</h3>
+          <p class="price">&#8377;60</p>
+          <button class="order-btn" onclick="orderItem('Paal Parotta')" aria-label="Order Paal Parotta">Order Now</button>
+        </article>
+
+        <article class="menu-item" aria-label="Malabar Parotta">
+          <img src="malabar.jpg" alt="Flaky malabar parotta">
+          <h3>Malabar Parotta</h3>
+          <p class="price">&#8377;90</p>
+          <button class="order-btn" onclick="orderItem('Malabar Parotta')" aria-label="Order Malabar Parotta">Order Now</button>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===== Info Section - Table, Figure, Figcaption, Aside ===== -->
+    <section id="info" style="background:var(--light);" aria-labelledby="info-heading">
+      <h2 id="info-heading">Stall Info</h2>
+
+      <div class="info-layout">
+        <div class="info-main">
+
+          <!-- Figure + Figcaption - Semantic HTML -->
+          <figure style="margin-bottom:20px; text-align:center;">
+            <img src="kothu.jpg" alt="Our famous Kothu Parotta being prepared"
+                 style="width:100%; max-width:400px; border-radius:10px; object-fit:cover; height:220px;">
+            <figcaption style="margin-top:8px; color:var(--muted); font-size:0.9rem;">
+              Our signature Kothu Parotta &mdash; made fresh every evening &#10003;
+            </figcaption>
+          </figure>
+
+          <!-- Table -->
+          <table class="info-table" aria-label="Pricing and availability table">
+            <caption style="margin-bottom:10px; font-weight:600;">Menu Pricing Overview</caption>
+            <thead>
+              <tr>
+                <th scope="col">Variety</th>
+                <th scope="col">Price (&#8377;)</th>
+                <th scope="col">Available</th>
+                <th scope="col">Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Plain Parotta</td><td>15</td><td>Yes</td><td>Classic</td></tr>
+              <tr><td>Kothu Parotta</td><td>60</td><td>Yes</td><td>Signature</td></tr>
+              <tr><td>Egg Parotta</td><td>35</td><td>Yes</td><td>Non-Veg</td></tr>
+              <tr><td>Chilli Parotta</td><td>70</td><td>Yes</td><td>Spicy</td></tr>
+              <tr><td>Kizhi Parotta</td><td>120</td><td>Yes</td><td>Premium</td></tr>
+              <tr><td>Paal Parotta</td><td>60</td><td>Yes</td><td>Sweet</td></tr>
+              <tr><td>Wheat Parotta</td><td>25</td><td>Yes</td><td>Healthy</td></tr>
+              <tr><td>Malabar Parotta</td><td>90</td><td>Yes</td><td>Premium</td></tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4" style="text-align:right; font-size:0.85rem; color:var(--muted);">
+                  Prices inclusive of taxes &bull; Updated June 2025
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+
+          <!-- Time - Semantic HTML -->
+          <p style="margin-top:15px; text-align:center;">
+            Open daily: <time datetime="17:00">5:00 PM</time> &ndash;
+            <time datetime="23:00">11:00 PM</time>
+          </p>
+        </div>
+
+        <!-- Aside - Semantic HTML -->
+        <aside class="info-aside" aria-label="Quick facts">
+          <h3 style="margin-bottom:10px;">&#128204; Quick Facts</h3>
+          <ul style="padding-left:18px;">
+            <li>Est. <time datetime="2000">2000</time></li>
+            <li>12+ varieties daily</li>
+            <li>Halal certified</li>
+            <li>5&#9733; rated on Swiggy</li>
+            <li>Delivery: 5 km radius</li>
+          </ul>
+          <hr style="margin:15px 0; border-color:#ddd;">
+          <p style="font-size:0.85rem;">
+            Special Characters Demo:<br>
+            &amp; &lt; &gt; &quot; &copy; &reg; &trade;
+            &ndash; &mdash; &laquo; &raquo; &#8377; &#9786;
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===== HTML5 Audio & Video ===== -->
+    <section id="gallery" style="background:#fff;" aria-labelledby="gallery-heading">
+      <h2 id="gallery-heading">Gallery &amp; Media</h2>
+
+      <!-- Gallery with overflow scroll -->
+      <div class="gallery-scroll" role="list" aria-label="Food photo gallery">
+        <img src="plain.jpg"   alt="Plain Parotta" role="listitem">
+        <img src="kothu.jpg"   alt="Kothu Parotta" role="listitem">
+        <img src="kizhi.jpg"   alt="Kizhi Parotta" role="listitem">
+        <img src="chilli.jpg"  alt="Chilli Parotta" role="listitem">
+        <img src="malabar.jpg" alt="Malabar Parotta" role="listitem">
+        <img src="paal.jpg"    alt="Paal Parotta"  role="listitem">
+      </div>
+
+      <!-- HTML5 Video -->
+      <div style="max-width:600px; margin:30px auto; text-align:center;">
+        <h3 style="margin-bottom:10px;">Making of Kothu Parotta</h3>
+        <video width="100%" controls poster="kothu.jpg"
+               aria-label="Video showing preparation of Kothu Parotta"
+               style="border-radius:var(--radius);">
+          <!-- src="parotta-making.mp4" type="video/mp4" — add your video file here -->
+          <source src="#" type="video/mp4">
+          <p>Your browser does not support HTML5 video.
+             <a href="#">Download the video</a> instead.</p>
+        </video>
+      </div>
+
+      <!-- HTML5 Audio -->
+      <div style="max-width:400px; margin:20px auto; text-align:center;">
+        <h3 style="margin-bottom:10px;">&#127925; Ambience</h3>
+        <audio controls aria-label="Stall ambience audio">
+          <!-- src="ambience.mp3" — add your audio file here -->
+          <source src="#" type="audio/mpeg">
+          Your browser does not support HTML5 audio.
+        </audio>
+      </div>
+
+    </section>
+
+    <!-- ===== Contact Section - Forms, Input Types, Labels, Validation ===== -->
+    <section id="contact" style="background:var(--light);" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Contact Us</h2>
+      <form id="contact-form" novalidate aria-label="Contact form">
+
+        <label for="name">Full Name <span style="color:#e74c3c;" aria-hidden="true">*</span></label>
+        <input type="text" id="name" name="name" placeholder="Your Name"
+               required minlength="2" maxlength="50"
+               aria-required="true" aria-describedby="name-hint" />
+        <small id="name-hint" style="display:block; margin-top:-10px; margin-bottom:10px; color:var(--muted);">
+          Min 2 characters required.
+        </small>
+
+        <label for="email">Email Address <span style="color:#e74c3c;" aria-hidden="true">*</span></label>
+        <input type="email" id="email" name="email" placeholder="you@example.com"
+               required aria-required="true" />
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="+91-XXXXX-XXXXX"
+               pattern="[+]?[0-9\s\-]{7,15}" />
+
+        <label for="quantity">Number of Parottas</label>
+        <input type="number" id="quantity" name="quantity" min="1" max="100"
+               placeholder="e.g. 5" value="1" />
+
+        <label for="delivery-date">Preferred Delivery Date</label>
+        <input type="date" id="delivery-date" name="delivery-date" />
+
+        <label for="order-time">Preferred Time</label>
+        <input type="time" id="order-time" name="order-time" min="17:00" max="23:00" />
+
+        <label for="spice-level">Spice Level</label>
+        <input type="range" id="spice-level" name="spice-level" min="1" max="5" value="3"
+               aria-label="Spice level from 1 to 5" />
+        <small style="display:block; margin-top:-10px; margin-bottom:10px; color:var(--muted);">
+          1 = Mild &nbsp; 5 = Extra Hot
+        </small>
+
+        <label for="variety">Preferred Variety</label>
+        <select id="variety" name="variety" aria-label="Select a parotta variety">
+          <option value="">-- Choose a variety --</option>
+          <option value="plain">Plain Parotta (&#8377;15)</option>
+          <option value="kothu">Kothu Parotta (&#8377;60)</option>
+          <option value="egg">Egg Parotta (&#8377;35)</option>
+          <option value="chilli">Chilli Parotta (&#8377;70)</option>
+          <option value="kizhi">Kizhi Parotta (&#8377;120)</option>
+          <option value="paal">Paal Parotta (&#8377;60)</option>
+          <option value="malabar">Malabar Parotta (&#8377;90)</option>
+        </select>
+
+        <fieldset style="border:1px solid #ddd; border-radius:5px; padding:12px; margin-bottom:15px;">
+          <legend style="padding:0 8px; font-weight:600;">Order Type</legend>
+          <label style="display:inline-flex; align-items:center; gap:8px; margin-right:20px; font-weight:400;">
+            <input type="radio" name="order-type" value="dine-in" checked /> Dine-In
+          </label>
+          <label style="display:inline-flex; align-items:center; gap:8px; font-weight:400;">
+            <input type="radio" name="order-type" value="delivery" /> Delivery
+          </label>
+        </fieldset>
+
+        <fieldset style="border:1px solid #ddd; border-radius:5px; padding:12px; margin-bottom:15px;">
+          <legend style="padding:0 8px; font-weight:600;">Add-ons</legend>
+          <label style="display:flex; align-items:center; gap:8px; font-weight:400; margin-bottom:6px;">
+            <input type="checkbox" name="addons" value="chutney" /> Coconut Chutney
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; font-weight:400; margin-bottom:6px;">
+            <input type="checkbox" name="addons" value="kurma" /> Kurma
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; font-weight:400;">
+            <input type="checkbox" name="addons" value="salna" /> Salna
+          </label>
+        </fieldset>
+
+        <label for="message">Your Message</label>
+        <textarea id="message" name="message" rows="4"
+                  placeholder="Special instructions, bulk orders, feedback..."></textarea>
+
+        <label for="file-upload">Attach Screenshot (optional)</label>
+        <input type="file" id="file-upload" name="attachment"
+               accept="image/*" style="margin-bottom:15px;" />
+
+        <label for="website">Website (optional)</label>
+        <input type="url" id="website" name="website" placeholder="https://yoursite.com" />
+
+        <button type="submit">&#128231; Send Message</button>
+      </form>
+    </section>
+
+    <!-- ===== Address Section - Semantic HTML ===== -->
+    <section id="address" aria-labelledby="address-heading">
+      <h2 id="address-heading">Our Address</h2>
+
+      <address style="text-align:center; max-width:800px; margin:auto; font-style:normal; line-height:2;">
+        <strong>The Parotta Hub</strong><br>
+        12, Food Street,<br>
+        Near Bus Stand,<br>
+        Madurai &ndash; 625001,<br>
+        Tamil Nadu, India.<br>
+        <a href="tel:+919876543210" aria-label="Call us">&#128222; +91-98765-43210</a>
+      </address>
+
+      <!-- Iframe - Google Map embed placeholder -->
+      <div class="map-wrapper" aria-label="Map showing stall location">
+        <iframe
+          title="The Parotta Hub Location Map"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=78.09,9.91,78.13,9.94&layer=mapnik"
+          allowfullscreen
+          loading="lazy"
+          aria-label="Interactive map of Madurai location">
+        </iframe>
+      </div>
+
+    </section>
+
+    <!-- ===== Help Section ===== -->
+    <section id="help" style="background:var(--light);" aria-labelledby="help-heading">
+      <h2 id="help-heading">Help &amp; FAQs</h2>
+      <div class="calc-demo">
+        <h3 style="margin-bottom:15px;">Frequently Asked Questions</h3>
+
+        <details style="margin-bottom:10px; border:1px solid #ddd; border-radius:8px; padding:12px;">
+          <summary style="cursor:pointer; font-weight:600;">
+            Q1: What types of Parottas do you serve?
+          </summary>
+          <p style="margin-top:8px;">We serve over 20 varieties, including Plain, Egg, Kothu,
+          Chilli, Veetu, Nool, Bun, Kizhi, Paal, Wheat, Lappa, and Malabar Parottas.</p>
+        </details>
+
+        <details style="margin-bottom:10px; border:1px solid #ddd; border-radius:8px; padding:12px;">
+          <summary style="cursor:pointer; font-weight:600;">
+            Q2: What are your opening hours?
+          </summary>
+          <p style="margin-top:8px;">Open every day from
+            <time datetime="17:00"><strong>5:00 PM</strong></time> to
+            <time datetime="23:00"><strong>11:00 PM</strong></time>.
+          </p>
+        </details>
+
+        <details style="margin-bottom:10px; border:1px solid #ddd; border-radius:8px; padding:12px;">
+          <summary style="cursor:pointer; font-weight:600;">
+            Q3: Do you provide home delivery?
+          </summary>
+          <p style="margin-top:8px;">Yes! We deliver via Swiggy, Zomato, and direct phone
+          orders within a 5&nbsp;km radius.</p>
+        </details>
+
+        <details style="margin-bottom:10px; border:1px solid #ddd; border-radius:8px; padding:12px;">
+          <summary style="cursor:pointer; font-weight:600;">
+            Q4: Can I pre-order for a large group or party?
+          </summary>
+          <p style="margin-top:8px;">Absolutely! Please contact us at least 2 hours in advance
+          for bulk or custom orders.</p>
+        </details>
+
+        <details style="margin-bottom:10px; border:1px solid #ddd; border-radius:8px; padding:12px;">
+          <summary style="cursor:pointer; font-weight:600;">
+            Q5: Are your items halal and hygienic?
+          </summary>
+          <p style="margin-top:8px;">Yes. All items are prepared fresh daily with halal-certified
+          ingredients in a hygienic kitchen.</p>
+        </details>
+
+        <details style="margin-bottom:10px; border:1px solid #ddd; border-radius:8px; padding:12px;">
+          <summary style="cursor:pointer; font-weight:600;">
+            Q6: How can I reach you for complaints or feedback?
+          </summary>
+          <p style="margin-top:8px;">Use the contact form above or call
+            <a href="tel:+919876543210"><strong>+91-98765-43210</strong></a>.
+          </p>
+        </details>
+
+      </div>
+    </section>
+
+  </main><!-- end main -->
+
+  <!-- ===== Footer - Semantic HTML ===== -->
+  <footer role="contentinfo">
+    <p>
+      &copy; <time datetime="2025">2025</time> The Parotta Hub &bull; Madurai, Tamil Nadu<br>
+      Designed with &#10084; using pure HTML &amp; CSS
     </p>
-  </section>
-
-  <section id="menu">
-    <h2>Our Varieties</h2>
-    <div class="menu-container">
-      <!-- One Sample -->
-      <div class="menu-item">
-        <img src="plain.jpg" alt="Plain Parotta">
-        <h3>Plain Parotta</h3>
-        <p>₹15</p>
-        <button class="order-btn" onclick="orderItem('Plain Parotta')">Order Now</button>
-      </div>
-
-      <div class="menu-item">
-        <img src="kothu.jpg" alt="Kothu Parotta">
-        <h3>Kothu Parotta</h3>
-        <p>₹60</p>
-        <button class="order-btn" onclick="orderItem('Kothu Parotta')">Order Now</button>
-      </div>
-
-      <div class="menu-item">
-        <img src="egg.jpg" alt="Egg Parotta">
-        <h3>Egg Parotta</h3>
-        <p>₹35</p>
-        <button class="order-btn" onclick="orderItem('Egg Parotta')">Order Now</button>
-      </div>
-
-      <div class="menu-item">
-        <img src="chilli.jpg" alt="Chilli Parotta">
-        <h3>Chilli Parotta</h3>
-        <p>₹70</p>
-        <button class="order-btn" onclick="orderItem('Chilli Parotta')">Order Now</button>
-      </div>
-
-      <div class="menu-item">
-        <img src="veetu.jpg" alt="Veetu Parotta">
-        <h3>Veetu Parotta</h3>
-        <p>₹20</p>
-        <button class="order-btn" onclick="orderItem('Veetu Parotta')">Order Now</button>
-      </div>
-
-      <div class="menu-item">
-        <img src="nool.jpg" alt="Nool parotta">
-        <h3>Nool Parotta</h3>
-        <p>₹25</p>
-        <button class="order-btn" onclick="orderItem('Nool Parotta')">Order Now</button>
-      </div>
-
-      <div class="menu-item">
-        <img src="bun.jpg" alt="bun Parotta">
-        <h3>Bun Parotta</h3>
-        <p>₹40</p>
-        <button class="order-btn" onclick="orderItem('Bun Parotta')">Order Now</button>
-      </div>
-
-      <div class="menu-item">
-        <img src="kizhi.jpg" alt="kizhi Parotta">
-        <h3>Kizhi Parotta</h3>
-        <p>₹120</p>
-        <button class="order-btn" onclick="orderItem('Kizhi Parotta')">Order Now</button>
-      </div>
-
-      <div class="menu-item">
-        <img src="lappa.jpg" alt="Parotta lappa">
-        <h3>Parotta lappa</h3>
-        <p>₹30</p>
-        <button class="order-btn" onclick="orderItem('Parotta Lappa')">Order Now</button>
-      </div>
-
-      <div class="menu-item">
-        <img src="wheat.jpg" alt="Wheat parotta">
-        <h3>Wheat Parotta</h3>
-        <p>₹25</p>
-        <button class="order-btn" onclick="orderItem('Wheat Parotta')">Order Now</button>
-      </div>
-
-      <div class="menu-item">
-        <img src="paal.jpg" alt="Paal Parotta">
-        <h3>Paal Parotta</h3>
-        <p>₹60</p>
-        <button class="order-btn" onclick="orderItem('Paal Parotta')">Order Now</button>
-      </div>
-
-      <div class="menu-item">
-        <img src="malabar.jpg" alt="Malabar parotta">
-        <h3>Malabar Parotta</h3>
-        <p>₹90</p>
-        <button class="order-btn" onclick="orderItem('Malabar Parotta')">Order Now</button>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <textarea rows="5" placeholder="Your Message"></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
-  <section id="address">
-  <h2><center>Our Address</center></h2><br><br>
-  <p style="text-align:center; max-width: 800px; margin: auto;">
-    The Parotta Hub,<br>
-    12, Food Street,<br>
-    Near Bus Stand,<br>
-    Madurai - 625001,<br>
-    Tamil Nadu, India.
-  </p>
-</section>
-
-  <section id="help">
-    <h2>Help & FAQs</h2>
-    <div style="max-width: 800px; margin: auto;">
-      <h3>Frequently Asked Questions</h3>
-      <p><strong>Q1:</strong> <em>What types of Parottas do you serve?</em><br/>
-      <strong>A:</strong> We serve over 20 varieties, including Plain, Egg, Kothu, Chilli, Veetu, and Cheese Parottas.</p>
-
-      <p><strong>Q2:</strong> <em>What are your opening hours?</em><br/>
-      <strong>A:</strong> We’re open every day from <strong>5:00 PM to 11:00 PM</strong>.</p>
-
-      <p><strong>Q3:</strong> <em>Do you provide home delivery?</em><br/>
-      <strong>A:</strong> Yes! We offer delivery via Swiggy, Zomato, and direct phone orders (within 5 km).</p>
-
-      <p><strong>Q4:</strong> <em>Can I pre-order for a large group or party?</em><br/>
-      <strong>A:</strong> Absolutely! Please contact us at least 2 hours in advance for bulk or custom orders.</p>
-
-      <p><strong>Q5:</strong> <em>Are your items halal and hygienic?</em><br/>
-      <strong>A:</strong> Yes. All items are prepared fresh daily with halal-certified ingredients in a hygienic kitchen.</p>
-
-      <p><strong>Q6:</strong> <em>How can I reach you for complaints or feedback?</em><br/>
-      <strong>A:</strong> Please use the contact form above or call us at <strong>+91-98765-43210</strong>.</p>
-    </div>
-  </section>
-
-  <footer>
-    &copy; 2025 Parotta Stall | Designed with ❤️
   </footer>
 
-  <script>
-    document.querySelector("form").addEventListener("submit", function(e) {
-      e.preventDefault();
-      alert("Thanks for contacting us! We'll get back to you soon.");
-    });
+  <!-- ===== Fixed Scroll-to-Top Button ===== -->
+  <button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+          aria-label="Scroll back to top" title="Back to top">&#8679;</button>
 
-    function orderItem(itemName) {
-      alert("✅ " + itemName + " has been added to your order!");
-    }
+  <!-- noscript fallback - HTML Best Practice -->
+  <noscript>
+    <style>.order-btn { pointer-events: none; opacity: 0.6; }</style>
+    <p style="text-align:center; padding:10px; background:#ffecb3;">
+      JavaScript is disabled. Interactive features are limited.
+    </p>
+  </noscript>
+
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+          integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+          crossorigin="anonymous"></script>
+
+  <script>
+    // =====================================================
+    // jQuery - All Concepts Demo
+    // =====================================================
+
+    $(document).ready(function () {
+
+      // ===== 1. jQuery Syntax =====
+      // $('selector').action()  — basic jQuery syntax
+      $('body').css('opacity', '1');  // ensures page is visible on load
+
+
+      // ===== 2. Selectors =====
+      // Element, class, id, attribute, pseudo selectors
+      var $menuItems   = $('.menu-item');          // class selector
+      var $heading     = $('h1');                  // element selector
+      var $contactForm = $('#contact-form');       // id selector
+      var $reqInputs   = $('input[required]');     // attribute selector
+      var $firstItem   = $('.menu-item:first');    // pseudo selector
+      var $lastItem    = $('.menu-item:last');     // pseudo selector
+
+
+      // ===== 3. DOM Manipulation =====
+      // .text(), .html(), .val(), .attr(), .css(), .addClass(), .removeClass(), .toggleClass()
+
+      // Add a subtitle under the hero heading
+      $('h1.hero-title').after(
+        '<p style="color:#fffbe6; font-size:0.9rem; margin-top:8px;" id="jquery-note">' +
+        '&#128204; jQuery is active on this page</p>'
+      );
+
+      // Change an attribute
+      $('footer p').attr('title', 'Footer content managed by jQuery');
+
+      // Add/remove a CSS class on first menu card to highlight it
+      $firstItem.addClass('featured-card');
+      $('head').append(
+        '<style>' +
+        '.featured-card { outline: 3px solid #FFD700; outline-offset: 2px; }' +
+        '</style>'
+      );
+
+      // .css() for inline style manipulation
+      $lastItem.css({ 'border-top': '3px solid #FFD700' });
+
+
+      // ===== 4. Event Handling =====
+      // .on(), .click(), .hover(), .keyup(), .submit(), .change()
+
+      // click event on order buttons
+      $('.order-btn').on('click', function () {
+        var itemName = $(this).closest('.menu-item').find('h3').text().trim();
+        // strip badge text using clone trick
+        var cleanName = $(this).closest('.menu-item').find('h3').clone()
+                        .children().remove().end().text().trim();
+        showToast('&#9989; ' + cleanName + ' added to your order!');
+      });
+
+      // hover event on nav links
+      $('nav ul li a').hover(
+        function () { $(this).css('letter-spacing', '0.5px'); },   // mouseenter
+        function () { $(this).css('letter-spacing', ''); }         // mouseleave
+      );
+
+      // keyup event — live char count on message textarea
+      var $msg      = $('#message');
+      var $msgHint  = $('<small id="char-count" style="display:block;margin-top:-10px;' +
+                        'margin-bottom:10px;color:#888;">0 / 300 characters</small>');
+      $msg.after($msgHint);
+
+      $msg.on('keyup', function () {
+        var len = $(this).val().length;
+        $('#char-count').text(len + ' / 300 characters');
+      });
+
+      // change event on variety select
+      $('#variety').on('change', function () {
+        var selected = $(this).find('option:selected').text();
+        if ($(this).val() !== '') {
+          showToast('&#127869;&#65039; Selected: ' + selected);
+        }
+      });
+
+
+      // ===== 5. Traversing Elements =====
+      // .parent(), .children(), .siblings(), .find(), .closest(), .next(), .prev()
+
+      // Wrap each menu item's h3 in a nav landmark using traversal
+      $menuItems.each(function (index) {
+        var $card  = $(this);                         // current element
+        var $img   = $card.children('img');           // children()
+        var $h3    = $card.find('h3');                // find()
+        var $price = $h3.next('p');                   // next()
+        var $btn   = $price.next('button');           // next() again
+
+        // Add data attribute via traversal
+        $card.attr('data-index', index + 1);
+        $h3.parent().css('position', 'relative');    // parent()
+      });
+
+      // siblings() — highlight sibling cards on hover
+      $menuItems.on('mouseenter', function () {
+        $(this).siblings('.menu-item').css('opacity', '0.75');  // siblings()
+      }).on('mouseleave', function () {
+        $(this).siblings('.menu-item').css('opacity', '1');
+      });
+
+
+      // ===== 6. Show / Hide Elements =====
+      // .show(), .hide(), .toggle()
+
+      // Add a "Show All Prices" toggle button above the menu
+      var $togglePriceBtn = $('<button id="toggle-prices" style="display:block;' +
+        'margin:0 auto 20px;padding:8px 18px;background:#222;color:#fff;' +
+        'border:none;border-radius:5px;cursor:pointer;font-family:inherit;">' +
+        '&#128065;&#65039; Hide Prices</button>');
+      $('#menu .menu-container').before($togglePriceBtn);
+
+      $('#toggle-prices').on('click', function () {
+        $('.menu-item .price').toggle();                       // toggle()
+        var isHidden = $('.menu-item .price:first').is(':hidden');
+        $(this).text(isHidden ? '&#128065;&#65039; Show Prices' : '&#128065;&#65039; Hide Prices');
+      });
+
+
+      // ===== 7. Effects & Animations =====
+      // .fadeIn(), .fadeOut(), .fadeToggle(), .slideUp(), .slideDown(), .slideToggle(), .animate()
+
+      // Fade in menu items one by one on page load
+      $menuItems.hide().each(function (i) {
+        $(this).delay(i * 100).fadeIn(400);                    // fadeIn()
+      });
+
+      // Animate the hero tagline
+      $('#hero-tagline').hide().delay(800).fadeIn(1000);       // fadeIn() with delay
+
+      // Slide toggle for FAQ details (augment native <details>)
+      // Add a smooth jQuery slide panel below help section
+      var $faqExtra = $(
+        '<div id="faq-extra" style="display:none; max-width:700px; margin:20px auto;' +
+        'padding:15px; background:#fffde7; border-radius:10px; border:1px solid #FFD700;">' +
+        '<h4 style="margin-bottom:8px;">&#127775; Pro Tip</h4>' +
+        '<p>Order Kizhi Parotta for a premium banana-leaf experience. Best paired with Salna!</p>' +
+        '</div>'
+      );
+
+      var $faqToggle = $(
+        '<button id="faq-toggle-btn" style="display:block;margin:10px auto;' +
+        'padding:8px 18px;background:#FFD700;color:#222;border:none;border-radius:5px;' +
+        'cursor:pointer;font-weight:700;font-family:inherit;">&#43; Show Pro Tip</button>'
+      );
+
+      $('#help .calc-demo').append($faqToggle).append($faqExtra);
+
+      $('#faq-toggle-btn').on('click', function () {
+        $('#faq-extra').slideToggle(400);                      // slideToggle()
+        var open = $('#faq-extra').is(':visible');
+        $(this).text(open ? '&#8722; Hide Pro Tip' : '&#43; Show Pro Tip');
+      });
+
+      // .animate() — bounce the scroll-to-top button
+      $('#scroll-top').on('mouseenter', function () {
+        $(this).animate({ bottom: '35px' }, 150)              // animate()
+               .animate({ bottom: '30px' }, 150);
+      });
+
+
+      // ===== 8. Forms =====
+      // .val(), .serialize(), .serializeArray(), form validation with jQuery
+
+      $contactForm.on('submit', function (e) {
+        e.preventDefault();
+
+        // .val() to read field values
+        var name  = $('#name').val().trim();
+        var email = $('#email').val().trim();
+
+        // Basic jQuery validation
+        if (name.length < 2) {
+          $('#name').css('border-color', '#e74c3c').focus();
+          showToast('&#9888;&#65039; Please enter a valid name.', 'error');
+          return;
+        }
+        if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+          $('#email').css('border-color', '#e74c3c').focus();
+          showToast('&#9888;&#65039; Please enter a valid email.', 'error');
+          return;
+        }
+
+        // .serialize() — URL-encoded form string
+        var serialized = $(this).serialize();
+        console.log('Serialized:', serialized);
+
+        // .serializeArray() — array of {name, value} objects
+        var formData = $(this).serializeArray();
+        console.log('SerializeArray:', formData);
+
+        showToast('&#128231; Message sent! We\'ll get back to you soon.');
+        $(this).trigger('reset');                              // trigger reset event
+        $('input, textarea, select', this).css('border-color', '#ccc');
+      });
+
+      // Reset border color on input focus
+      $('input, textarea, select').on('focus', function () {
+        $(this).css('border-color', '#FFD700');
+      });
+
+
+      // ===== 9. DOM Creation & Removal =====
+      // .append(), .prepend(), .after(), .before(), .remove(), .empty(), .clone()
+
+      // Dynamically create and append an "Order Summary" section
+      var $orderSummary = $(
+        '<section id="order-summary" style="background:#fffde7; padding:30px 20px;">' +
+        '  <h2 style="text-align:center; margin-bottom:10px;">&#128203; Order Summary</h2>' +
+        '  <div style="max-width:600px;margin:auto;">' +
+        '    <ul id="order-list" style="list-style:none; padding:0; min-height:40px;">' +
+        '      <li id="empty-msg" style="color:#999; text-align:center;">No items added yet.</li>' +
+        '    </ul>' +
+        '    <div style="text-align:center; margin-top:15px;">' +
+        '      <button id="clear-orders" style="padding:8px 18px; background:#e74c3c; color:white;' +
+        '        border:none; border-radius:5px; cursor:pointer; font-family:inherit;">' +
+        '        &#128465;&#65039; Clear All</button>' +
+        '    </div>' +
+        '  </div>' +
+        '</section>'
+      );
+
+      // Insert before footer using DOM creation
+      $('footer').before($orderSummary);                      // before()
+
+      // Add nav link for order summary
+      $('nav ul').append(                                     // append()
+        '<li><a href="#order-summary" aria-label="Order Summary">&#128203; Orders</a></li>'
+      );
+
+      // Track orders globally
+      window._orders = [];
+
+      // Override order button to also add to summary
+      $('.order-btn').off('click').on('click', function () {
+        var $card = $(this).closest('.menu-item');
+        var name  = $card.find('h3').clone().children().remove().end().text().trim();
+        var price = $card.find('.price').text().trim();
+
+        window._orders.push({ name: name, price: price });
+
+        // Remove "empty" message
+        $('#empty-msg').remove();                             // remove()
+
+        // Create and append new order item
+        var $item = $('<li style="display:flex; justify-content:space-between;' +
+          'padding:8px 12px; border-bottom:1px solid #eee; align-items:center;">' +
+          '<span>&#9745; ' + name + '</span>' +
+          '<span style="font-weight:700;">' + price + '</span>' +
+          '</li>');
+        $item.hide().appendTo('#order-list').slideDown(300); // appendTo() + slideDown
+
+        showToast('&#9989; ' + name + ' added!');
+      });
+
+      // Clear all orders — .empty()
+      $(document).on('click', '#clear-orders', function () {
+        $('#order-list').empty();                             // empty()
+        $('#order-list').append(                             // append() after empty
+          '<li id="empty-msg" style="color:#999;text-align:center;">No items added yet.</li>'
+        );
+        window._orders = [];
+        showToast('&#128465;&#65039; Order list cleared.');
+      });
+
+      // .clone() — clone a menu card to show in order summary on request
+      $('#order-summary h2').on('dblclick', function () {
+        var $clone = $('.menu-item:first').clone(true);      // clone(true) copies events too
+        $clone.css({ 'max-width': '220px', 'margin': '10px auto', 'display': 'block' });
+        $(this).after($clone);
+        setTimeout(function () { $clone.fadeOut(500, function () { $(this).remove(); }); }, 2000);
+      });
+
+
+      // ===== 10. JSON Handling =====
+      // JSON.parse(), JSON.stringify(), iterating JSON data with jQuery
+
+      // Sample JSON data for specials
+      var specialsJSON = '[' +
+        '{"name":"Kizhi Parotta","price":120,"tag":"Premium"},' +
+        '{"name":"Malabar Parotta","price":90,"tag":"Special"},' +
+        '{"name":"Paal Parotta","price":60,"tag":"Sweet"}' +
+        ']';
+
+      var specials = JSON.parse(specialsJSON);              // JSON.parse()
+
+      var $specialsSection = $(
+        '<section id="specials" style="background:#fff; padding:30px 20px;">' +
+        '<h2 style="text-align:center; margin-bottom:20px;">&#11088; Today\'s Specials' +
+        '</h2><div id="specials-list" style="display:flex; flex-wrap:wrap; gap:15px;' +
+        'justify-content:center; max-width:800px; margin:auto;"></div></section>'
+      );
+      $('#order-summary').before($specialsSection);
+
+      $.each(specials, function (i, item) {                  // $.each() utility
+        var card = $('<div style="background:#fffde7; border:2px solid #FFD700;' +
+          'border-radius:10px; padding:15px 20px; text-align:center; min-width:160px;">' +
+          '<h3>' + item.name + '</h3>' +
+          '<p style="color:#555;">&#8377;' + item.price + '</p>' +
+          '<span style="background:#FFD700; border-radius:20px; padding:2px 10px;' +
+          'font-size:0.8rem; font-weight:700;">' + item.tag + '</span>' +
+          '</div>');
+        $('#specials-list').append(card);
+      });
+
+      // JSON.stringify() — log current orders to console
+      $(document).on('click', '#clear-orders', function () {
+        console.log('Orders cleared. Last snapshot:', JSON.stringify(window._orders));
+      });
+
+
+      // ===== 11. AJAX Basics =====
+      // $.ajax(), $.get(), $.post(), .done(), .fail(), .always()
+
+      // Simulate an AJAX GET to a public API (JSONPlaceholder as demo)
+      $('#contact-form button[type="submit"]').before(
+        '<div id="ajax-status" style="text-align:center; margin-bottom:10px; font-size:0.85rem;' +
+        'color:#888;">Checking server status...</div>'
+      );
+
+      // $.get() shorthand
+      $.get('https://jsonplaceholder.typicode.com/todos/1')
+        .done(function (data) {                              // .done()
+          $('#ajax-status').text('&#9989; Server reachable. API response received.')
+                           .css('color', '#2ecc71');
+          console.log('AJAX $.get() response:', data);
+        })
+        .fail(function () {                                  // .fail()
+          $('#ajax-status').text('&#9888;&#65039; Could not reach server.')
+                           .css('color', '#e74c3c');
+        })
+        .always(function () {                               // .always()
+          console.log('AJAX request completed (done or fail).');
+        });
+
+      // $.ajax() full form — fetch menu data
+      $.ajax({
+        url: 'https://jsonplaceholder.typicode.com/posts/1',
+        method: 'GET',
+        dataType: 'json',
+        timeout: 5000,
+        success: function (res) {
+          console.log('$.ajax() success:', res.title);
+        },
+        error: function (xhr, status, err) {
+          console.warn('$.ajax() error:', status, err);
+        },
+        complete: function () {
+          console.log('$.ajax() complete.');
+        }
+      });
+
+      // $.post() demo — simulated (JSONPlaceholder accepts fake POSTs)
+      $.post('https://jsonplaceholder.typicode.com/posts',
+        { title: 'Order', body: 'Plain Parotta x2', userId: 1 },
+        function (res) {
+          console.log('$.post() response:', res);
+        }
+      );
+
+
+      // ===== 12. Utility Functions =====
+      // $.each(), $.map(), $.grep(), $.trim(), $.isArray(), $.now(), $.extend()
+
+      var prices = [15, 60, 35, 70, 20, 25, 40, 120, 30, 25, 60, 90];
+
+      // $.each() — iterate array
+      $.each(prices, function (i, val) {
+        // console.log('Item ' + (i+1) + ': ₹' + val);
+      });
+
+      // $.map() — transform array
+      var discounted = $.map(prices, function (val) {
+        return Math.round(val * 0.9);                        // 10% discount
+      });
+      console.log('$.map() discounted prices:', discounted);
+
+      // $.grep() — filter array
+      var premium = $.grep(prices, function (val) {
+        return val >= 60;                                    // filter premium items
+      });
+      console.log('$.grep() premium (>=60):', premium);
+
+      // $.trim() — trim whitespace
+      var raw = '   Parotta Hub   ';
+      console.log('$.trim():', $.trim(raw));
+
+      // $.isArray() — type check
+      console.log('$.isArray(prices):', $.isArray(prices));   // true
+
+      // $.now() — current timestamp
+      console.log('$.now():', $.now());
+
+      // $.extend() — merge objects
+      var defaults = { spice: 'medium', type: 'dine-in', quantity: 1 };
+      var userPref  = { spice: 'extra-hot', quantity: 3 };
+      var merged    = $.extend({}, defaults, userPref);        // $.extend()
+      console.log('$.extend() merged:', merged);
+
+
+      // ===== 13. Method Chaining =====
+      // Multiple jQuery methods chained in a single statement
+
+      // Chain: find + filter + css + addClass + fadeIn
+      $('.menu-container')
+        .find('.menu-item')                                  // find
+        .filter(function () {                                // filter
+          return $(this).find('.badge').length > 0;
+        })
+        .css('border', '2px solid #FFD700')                 // css
+        .addClass('highlighted')                             // addClass
+        .find('img')                                         // find within result
+        .css('opacity', '1');                                // css again — all chained
+
+      // Chain on form fields: val + trim check + css
+      $('input[type="text"]')
+        .val('')                                             // val
+        .attr('placeholder', 'Your Full Name')               // attr
+        .css('border-color', '#ccc');                        // css
+
+      // Scroll-to-top button — chained event + show/hide
+      $(window).on('scroll', function () {
+        if ($(this).scrollTop() > 300) {
+          $('#scroll-top').addClass('visible').fadeIn(200);  // chained
+        } else {
+          $('#scroll-top').removeClass('visible').fadeOut(200);
+        }
+      });
+
+      $('#scroll-top').on('click', function () {
+        $('html, body').animate({ scrollTop: 0 }, 500);     // animate scroll — chained
+      });
+
+
+      // ===== Toast Notification Helper =====
+      function showToast(msg, type) {
+        var bg = (type === 'error') ? '#e74c3c' : '#222';
+        var $toast = $('<div style="position:fixed; bottom:20px; left:50%;' +
+          'transform:translateX(-50%); background:' + bg + '; color:#fff;' +
+          'padding:12px 24px; border-radius:8px; z-index:9999; font-size:0.95rem;' +
+          'box-shadow:0 4px 12px rgba(0,0,0,0.2); white-space:nowrap;">' +
+          msg + '</div>');
+        $('body').append($toast);
+        $toast.hide().fadeIn(200).delay(2500).fadeOut(400, function () {
+          $(this).remove();
+        });
+      }
+
+    }); // end $(document).ready()
   </script>
+
 </body>
 </html>
